@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 
 import SearchByName from './SearchBarName'
 import SearchByLand from './SearchBarLand'
@@ -13,6 +12,7 @@ const ChooseMode = ()=>{
 }
 
 function App() {
+  //Chooses mode
   const [mode, setMode] = React.useState<Mode>("choosing");
   if(mode === "choosing")
     return <ChooseMode></ChooseMode>
