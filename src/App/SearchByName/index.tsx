@@ -1,24 +1,18 @@
 import React from 'react'
 
 import {useNameSearch} from 'hooks/geoapi'
+import SearchBar from '../SearchBar'
 
 function SearchBarLand() {
     //display search bar, use state to update to list -> one city
-    const [inp, setInp] = React.useState("");
-    const {
-        data,
-        isLoading,
-        error,
-        searchByName
-    } = useNameSearch()
+    const geoAPI = useNameSearch();
     return (
-        <div>
+        <section>
             <h2 className="f-md mt-3">Search by City</h2>
-            <input className="f-sm" type="text" name="" id="" onChange={(e)=>{e.preventDefault(); setInp(e.target.value)}}/><br/>
-            <button className="btn" onClick={e=>{e.preventDefault(); searchByName(inp)}}>Search</button>
+            <SearchBar search={geoAPI.searchByName} containerClasses="mt-5"></SearchBar>
             <ul>
                 {
-                    data && data.map(city=>{
+                    geoAPI.data && geoAPI.data.map(city=>{
                         return (
                             <li>
                                 <p>{city.name}</p>
@@ -28,7 +22,7 @@ function SearchBarLand() {
                     })
                 }
             </ul>
-        </div>
+        </section>
     )
 }
 
