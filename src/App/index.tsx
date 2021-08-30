@@ -14,12 +14,11 @@ const ChooseMode = ()=>{
 function App() {
   //Chooses mode
   const [mode, setMode] = React.useState<Mode>("choosing");
-  if(mode === "choosing")
-    return <ChooseMode></ChooseMode>
   if(mode === "searchByName")
-    return <SearchByName></SearchByName>
+  return <SearchByName></SearchByName>
   if(mode === "searchByLand")
-    return <SearchByLand></SearchByLand>
+  return <SearchByLand></SearchByLand>
+  return <ChooseMode></ChooseMode>
 }
 
 export default App

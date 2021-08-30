@@ -1,5 +1,5 @@
 import React from 'react'
-import {City} from '../interfaces'
+import {City} from 'interfaces'
 import {getIsoCode, getCountry} from './iso-code-converter'
 
 interface Error {
