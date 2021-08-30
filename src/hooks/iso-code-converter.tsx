@@ -1,5 +1,5 @@
 //Constant is copied form https://gist.github.com/maephisto/9228207
-
+//Keep all keys capitalized to avois problem with caps
 new Map<string, string>()
 
 const isoCountries = new Map<string, string>([
@@ -252,13 +252,14 @@ const isoCountries = new Map<string, string>([
 
 var nameToiso = new Map<string, string>();
 for(let k of Object.keys(isoCountries)){
-    let val: string | undefined = isoCountries.get(k)
+    let val: string | undefined = isoCountries.get(k)?.toUpperCase()
     if(val === undefined)
-        val = "hej"
+        val = "HEJ"
     nameToiso.set(val, k);
 }
 
 export const getIsoCode: ((country: string) => string|null|undefined) = (country: string)=>{
+    country = country.toUpperCase();
     if(!(country in nameToiso))
         return null;
     if(country in isoCountries) //already iso code
@@ -266,6 +267,7 @@ export const getIsoCode: ((country: string) => string|null|undefined) = (country
     return nameToiso.get(country)
 }
 export const getCountry: ((isoCode: string) => string | null | undefined) = (isoCode: string)=>{
+    isoCode = isoCode.toUpperCase();
     if(!(isoCode in isoCountries))
         return null;
     return isoCountries.get(isoCode);

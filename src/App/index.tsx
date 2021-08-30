@@ -13,7 +13,7 @@ const ChooseMode = ()=>{
 
 function App() {
   //Chooses mode
-  const [mode, setMode] = React.useState<Mode>("searchByName");
+  const [mode, setMode] = React.useState<Mode>("searchByLand");
   return (
     <>
       <h1 className="f-lg">CityPop</h1>

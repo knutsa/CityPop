@@ -8,7 +8,7 @@ interface Error {
 
 export const useGEOFetch = () => {
     const [data, setData] = React.useState<City[] | null>(null);
-    const [isLoading, setIsLoading] = React.useState(true);
+    const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState<Error | null>(null);
 
     const fetchRes = async (url: string) => {
@@ -42,6 +42,7 @@ export const useNameSearch = ()=>{
     */
    const geoApi = useGEOFetch()
    const searchByName = async (cityName: string) => {
+    //   Promise resolves to true if data was fetched
        return geoApi.fetchRes(`http://api.geonames.org/searchJSON?q=${cityName}&maxRows=100&username=weknowit`)
    }
    return {...geoApi, searchByName}
@@ -54,10 +55,11 @@ export const useLandSearch = ()=>{
     */
    const geoApi = useGEOFetch();
    const searchByLand = async (country: string) => {
+    //    Promise resolves to true if data was fetched
        const isoCode = getIsoCode(country);
        if(isoCode === null){
            geoApi.setError({msg: "This is not a country."});
-           return
+           return false;
        }
        return geoApi.fetchRes(`http://api.geonames.org/searchJSON?country=${isoCode}&maxRows=100&username=weknowit`)
    }
