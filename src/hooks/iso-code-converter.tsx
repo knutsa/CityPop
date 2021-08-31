@@ -251,18 +251,27 @@ const isoCountries = new Map<string, string>([
 ]);
 
 var nameToiso = new Map<string, string>();
-for(let k of Object.keys(isoCountries)){
-    let val: string | undefined = isoCountries.get(k)?.toUpperCase()
-    if(val === undefined)
-        val = "HEJ"
-    nameToiso.set(val, k);
+var namesCached = false;
+const cacheNames = () =>{
+    console.log("Caching names");
+    for(let [k, val] of isoCountries.entries()){
+        val = val.toUpperCase();
+        if(val === undefined)
+            val = "HEJ"
+        nameToiso.set(val, k);
+            console.log(k, val);
+    }
+    namesCached = true;
 }
 
-export const getIsoCode: ((country: string) => string|null|undefined) = (country: string)=>{
+export const getIsoCode: ((country: string) => string|undefined) = (country: string)=>{
     country = country.toUpperCase();
     console.log(country, "capped", isoCountries.get(country));
     if(isoCountries.get(country))
         return country;
+    if(!namesCached)
+        cacheNames();
+//    console.log(nameToiso);
     return nameToiso.get(country);
 }
 export const getCountry: ((isoCode: string) => string | null | undefined) = (isoCode: string)=>{
