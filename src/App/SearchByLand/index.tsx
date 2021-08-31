@@ -3,6 +3,7 @@ import React from 'react'
 import {useLandSearch} from 'hooks/geoapi'
 import SearchBar from '../SearchBar'
 import {CityLI, CityInfo} from '../CityDisplay'
+import {getCountry} from 'hooks/iso-code-converter'
 
 function SearchByLand() {
     //display search bar, use state to update to list -> one city
@@ -10,17 +11,22 @@ function SearchByLand() {
     const [selected, setSelected] = React.useState<number | undefined>();
     return (
         <section>
-            <h2 className="f-md">Search By Land</h2>
-            <SearchBar search={geoAPI.searchByLand} containerClasses="mt-5"></SearchBar>
+            {geoAPI.data === null && <><h2 className="f-md">Search By Land</h2> <SearchBar search={(txt)=>{setSelected(undefined); return geoAPI.searchByLand(txt);}} containerClasses="mt-5"></SearchBar> </>}
                 {
-                    geoAPI.data && selected && <CityInfo city={geoAPI.data[selected]}></CityInfo>
+                    geoAPI.data && selected !== undefined && <CityInfo city={geoAPI.data[selected]} containerClassNames="mt-3"></CityInfo>
                 }
                 {
-                    !selected && geoAPI.data && ( <div>{geoAPI.data.map((city, ind)=>{
-                        return (
-                           <CityLI key={ind} city={city}></CityLI> 
-                        )
-                    })}</div>)
+                    selected === undefined && geoAPI.data && ( <div>
+                        <p className="f-md my-3">{geoAPI.data[0].countryName}</p>
+                        {
+                            geoAPI.data.map((city, ind)=>{
+                                if(ind>=10)
+                                    return null;
+                                return (
+                                   <CityLI key={ind} city={city} onClick={(e)=>setSelected(ind)}></CityLI> 
+                            )})
+                        }
+                    </div>)
                 }
 
         </section>

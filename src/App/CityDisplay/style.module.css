@@ -1,0 +1,15 @@
+.box {
+    background-color: var(--light);
+    color: var(--secondary);
+}
+
+.city_li {
+    width: 60vw;
+}
+
+.city_info .box {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

@@ -273,7 +273,9 @@ export const getIsoCode: ((country: string) => string|undefined) = (country: str
 //    console.log(nameToiso);
     return nameToiso.get(country);
 }
-export const getCountry: ((isoCode: string) => string | null | undefined) = (isoCode: string)=>{
-    isoCode = isoCode.toUpperCase();
+export const getCountry: ((isoCodeOrCountry: string) => string | null | undefined) = (isoCodeOrCountry: string)=>{
+    const isoCode = getIsoCode(isoCodeOrCountry);
+    if(isoCode === undefined)
+        return undefined;
     return isoCountries.get(isoCode);
 }
