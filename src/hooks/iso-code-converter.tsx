@@ -260,6 +260,7 @@ for(let k of Object.keys(isoCountries)){
 
 export const getIsoCode: ((country: string) => string|null|undefined) = (country: string)=>{
     country = country.toUpperCase();
+    console.log(country, "capped", isoCountries.get(country));
     if(isoCountries.get(country))
         return country;
     return nameToiso.get(country);

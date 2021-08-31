@@ -57,7 +57,8 @@ export const useLandSearch = ()=>{
    const searchByLand = async (country: string) => {
     //    Promise resolves to true if data was fetched
        const isoCode = getIsoCode(country);
-       if(isoCode === null){
+       console.log("isocode: ", isoCode);
+       if(isoCode === undefined){
            geoApi.setError({msg: "This is not a country."});
            return false;
        }
