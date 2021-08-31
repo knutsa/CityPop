@@ -260,15 +260,11 @@ for(let k of Object.keys(isoCountries)){
 
 export const getIsoCode: ((country: string) => string|null|undefined) = (country: string)=>{
     country = country.toUpperCase();
-    if(!(country in nameToiso))
-        return null;
-    if(country in isoCountries) //already iso code
+    if(isoCountries.get(country))
         return country;
-    return nameToiso.get(country)
+    return nameToiso.get(country);
 }
 export const getCountry: ((isoCode: string) => string | null | undefined) = (isoCode: string)=>{
     isoCode = isoCode.toUpperCase();
-    if(!(isoCode in isoCountries))
-        return null;
     return isoCountries.get(isoCode);
 }
