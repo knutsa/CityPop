@@ -11,14 +11,14 @@ function SearchByLand() {
     return (
         <section>
             <h2 className="f-md">Search By Land</h2>
-            <SearchBar search={geoAPI.searchByLand}></SearchBar>
+            <SearchBar search={geoAPI.searchByLand} containerClasses="mt-5"></SearchBar>
                 {
                     geoAPI.data && selected && <CityInfo city={geoAPI.data[selected]}></CityInfo>
                 }
                 {
-                    !selected && geoAPI.data && ( <div>{geoAPI.data.map(city=>{
+                    !selected && geoAPI.data && ( <div>{geoAPI.data.map((city, ind)=>{
                         return (
-                           <CityLI city={city}></CityLI> 
+                           <CityLI key={ind} city={city}></CityLI> 
                         )
                     })}</div>)
                 }

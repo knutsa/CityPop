@@ -1,12 +1,19 @@
 .search_container input {
     color: var(--secondary);
+    background-color: var(--light);
+    width: 60vw;
     text-align: center;
 }
 .search_container button {
     background-color: var(--secondary);
-    color: var(--primary);
+    color: var(--light);
     /* make circle */
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
 }
+.search_container button:focus, button:hover {
+    background-color: var(--secondary);
+    color: var(--light);
+    outline: none;
+  }

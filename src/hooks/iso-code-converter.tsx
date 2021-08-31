@@ -259,7 +259,6 @@ const cacheNames = () =>{
         if(val === undefined)
             val = "HEJ"
         nameToiso.set(val, k);
-            console.log(k, val);
     }
     namesCached = true;
 }

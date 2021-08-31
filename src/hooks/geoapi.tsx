@@ -5,11 +5,30 @@ import {getIsoCode, getCountry} from './iso-code-converter'
 interface Error {
     msg: string;
 }
+//Comparison to order Cities
+const CityComparer = (a: City, b: City)=>{
+    if(a.population>b.population)
+        return -1;
+    if(a.population<b.population)
+        return 1;
+    return 0;
+}
 
 export const useGEOFetch = () => {
+    const [rawData, setRawData] = React.useState<City[] | null>(null);
     const [data, setData] = React.useState<City[] | null>(null);
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState<Error | null>(null);
+
+    React.useEffect(()=>{
+        const newData = rawData?.filter(place=>place.fcl === "P")
+            .sort(CityComparer)
+            .slice(0, 10);
+        if(newData)
+            setData(newData);
+        else
+            setData(null);
+    }, [rawData]);
 
     const fetchRes = async (url: string) => {
         setIsLoading(true);
@@ -17,7 +36,7 @@ export const useGEOFetch = () => {
         try {
             const res = await fetch(url);
             const parsedData: {geonames: City[]} = await res.json();
-            setData(parsedData.geonames);
+            setRawData(parsedData.geonames);
             setIsLoading(false);
         } catch {
             setError({msg: "Something went wrong when fetching the data."});
@@ -42,14 +61,6 @@ export const useNameSearch = ()=>{
     returns state values data, isLoading, Error and method to trigger new serach - {data, isLoading, Error, reSearch}
     */
     const geoApi = useGEOFetch();
-    const [city, setCity] = React.useState<City | null>(null);
-    React.useEffect(()=>{
-        if(geoApi.data === null){
-            setCity(null);
-        } else{
-            setCity(geoApi.data[0]);
-        }
-    }, [geoApi.data])
     const searchByName = async (cityName: string) => {
     //   Promise resolves to true if data was fetched
         return geoApi.fetchRes(`http://api.geonames.org/searchJSON?q=${cityName}&maxRows=100&username=weknowit`);
@@ -58,33 +69,13 @@ export const useNameSearch = ()=>{
    
 }
 
-//Comparison to order Cities
-const CityComparer = (a: City, b: City)=>{
-    if(a.population>b.population)
-        return -1;
-    if(a.population<b.population)
-        return 1;
-    return 0;
-}
-
 export const useLandSearch = ()=>{
     /*
     Hook to search for city data
     returns state values data, isLoading, Error and method to trigger new serach - {data, isLoading, Error, reSearch}
     */
     const geoApi = useGEOFetch();
-    React.useEffect(()=>{
-        geoApi.setData(prev=>{
-            if(prev === null)
-                return null;
-            prev.sort(CityComparer);
-            const newData = [];
-            for(let i = 0;i<10&&i<prev.length;i++){
-                newData.push(prev[i])
-            }
-            return newData;
-        });
-    }, [geoApi.data])
+    
     const searchByLand = async (country: string) => {
     //    Promise resolves to true if data was fetched
        const isoCode = getIsoCode(country);
