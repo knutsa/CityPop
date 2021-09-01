@@ -24,4 +24,4 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-deployed version available at [https://competent-newton-756067.netlify.app/]
+deployed version available at [here](https://competent-newton-756067.netlify.app/)
