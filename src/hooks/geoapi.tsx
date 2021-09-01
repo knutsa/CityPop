@@ -71,7 +71,7 @@ export const useNameSearch = ()=>{
             geoApi.setError({msg: `No city named "${nameToMatch}"`})
         setFoundCity(null);
         return;
-    }, [geoApi,geoApi.data, geoApi.isLoading, nameToMatch])
+    }, [geoApi.data, geoApi.isLoading, nameToMatch])
     const searchByName = async (cityName: string) => {
     //   Promise resolves to true if data was fetched
         setNameToMatch(cityName);
