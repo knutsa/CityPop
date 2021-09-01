@@ -34,7 +34,7 @@ export const useGEOFetch = () => {
             const res = await fetch(url);
             const parsedData: {geonames: City[]} = await res.json();
             setRawData(parsedData.geonames);
-            //setIsLoading(false);
+            setIsLoading(false);
         } catch {
             setError({msg: "Something went wrong when fetching the data."});
             return false;

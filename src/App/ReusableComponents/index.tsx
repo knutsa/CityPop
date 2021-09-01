@@ -3,6 +3,7 @@ import React, { MouseEvent } from 'react'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import SearchIcon from '@material-ui/icons/Search'
+import BackIcon from '@material-ui/icons/Reply'
 import {Error} from 'interfaces'
 
 import styles from './style.module.css'
@@ -44,6 +45,10 @@ export const ErrorMsg: React.FC<{error: Error}> = ({error})=>{
 export const Loading: React.FC = ()=>{
     return <div className={`${styles.loading_container} d-flex flex-column align-items-center`}>
         <p className="f-sm">Loading</p>
-        <CircularProgress></CircularProgress>
+        <CircularProgress color="inherit"></CircularProgress>
     </div>
+}
+
+export const BackBtn: React.FC<{onClick: React.MouseEventHandler<HTMLButtonElement>}> = ({onClick})=>{
+    return <button onClick={onClick} className={`${styles.back_btn} f-md px-3`}><BackIcon color="inherit"></BackIcon></button>
 }
