@@ -1,8 +1,8 @@
 import React from 'react'
 
-import {City} from '../../interfaces'
+import {City} from '../../../interfaces'
 
-import styles from './style.module.css';
+import styles from './city-style.module.css';
 
 export const CityLI: React.FC<{city: City, onClick: React.MouseEventHandler<HTMLDivElement>}> = ({city: City, onClick})=>{
     //Displays city in list

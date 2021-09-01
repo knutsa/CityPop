@@ -1,11 +1,13 @@
 import React, { MouseEvent } from 'react'
 
 import TextField from '@material-ui/core/TextField'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import SearchIcon from '@material-ui/icons/Search'
+import {Error} from 'interfaces'
 
 import styles from './style.module.css'
 
-const Search: React.FC<{search:(txt: string)=>Promise<boolean>, containerClasses?: string }> = ({search, containerClasses})=>{
+export const SearchBar: React.FC<{search:(txt: string)=>Promise<boolean>, containerClasses?: string }> = ({search, containerClasses})=>{
     const [inp, setInp] = React.useState("");
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
         e.preventDefault();
@@ -33,4 +35,15 @@ const Search: React.FC<{search:(txt: string)=>Promise<boolean>, containerClasses
     )
 }
 
-export default Search
+export const ErrorMsg: React.FC<{error: Error}> = ({error})=>{
+    return (<div className={`${styles.error_container}`}>
+        <p className="f-md">{error.msg}</p>
+    </div>)
+}
+
+export const Loading: React.FC = ()=>{
+    return <div className={`${styles.loading_container} d-flex flex-column align-items-center`}>
+        <p className="f-sm">Loading</p>
+        <CircularProgress></CircularProgress>
+    </div>
+}

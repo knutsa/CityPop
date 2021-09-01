@@ -5,3 +5,6 @@ export interface City {
     countryName: string
     //and more
 }
+export interface Error {
+    msg: string;
+}

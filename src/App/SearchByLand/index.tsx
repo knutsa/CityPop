@@ -1,8 +1,8 @@
 import React from 'react'
 
 import {useLandSearch} from 'hooks/geoapi'
-import SearchBar from '../SearchBar'
-import {CityLI, CityInfo} from '../CityDisplay'
+import {SearchBar, ErrorMsg, Loading} from '../ReusableComponents'
+import {CityLI, CityInfo} from '../ReusableComponents/CityDisplay'
 import {getCountry} from 'hooks/iso-code-converter'
 
 function SearchByLand() {
@@ -11,7 +11,7 @@ function SearchByLand() {
     const [selected, setSelected] = React.useState<number | undefined>();
     return (
         <section>
-            {geoAPI.data === null && <><h2 className="f-md">Search By Land</h2> <SearchBar search={(txt)=>{setSelected(undefined); return geoAPI.searchByLand(txt);}} containerClasses="mt-5"></SearchBar> </>}
+            {geoAPI.data === null && <><h2 className="f-md mt-3">Search By Land</h2> <SearchBar search={(txt)=>{setSelected(undefined); return geoAPI.searchByLand(txt);}} containerClasses="mt-5"></SearchBar> </>}
                 {
                     geoAPI.data && selected !== undefined && <CityInfo city={geoAPI.data[selected]} containerClassNames="mt-3"></CityInfo>
                 }
@@ -27,6 +27,10 @@ function SearchByLand() {
                             )})
                         }
                     </div>)
+                }
+                {geoAPI.isLoading && <Loading></Loading>}
+                {
+                    geoAPI.error !== null && <ErrorMsg error={geoAPI.error}></ErrorMsg>
                 }
 
         </section>

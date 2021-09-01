@@ -1,10 +1,7 @@
 import React from 'react'
-import {City} from 'interfaces'
+import {City, Error} from 'interfaces'
 import {getIsoCode, getCountry} from './iso-code-converter'
 
-interface Error {
-    msg: string;
-}
 //Comparison to order Cities
 const CityComparer = (a: City, b: City)=>{
     if(a.population>b.population)
@@ -37,7 +34,7 @@ export const useGEOFetch = () => {
             const res = await fetch(url);
             const parsedData: {geonames: City[]} = await res.json();
             setRawData(parsedData.geonames);
-            setIsLoading(false);
+            //setIsLoading(false);
         } catch {
             setError({msg: "Something went wrong when fetching the data."});
             return false;

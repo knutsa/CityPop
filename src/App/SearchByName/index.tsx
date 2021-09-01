@@ -1,8 +1,8 @@
 import React from 'react'
 
 import {useNameSearch} from 'hooks/geoapi'
-import SearchBar from '../SearchBar'
-import {CityInfo} from '../CityDisplay'
+import {SearchBar} from '../ReusableComponents'
+import {CityInfo} from '../ReusableComponents/CityDisplay'
 
 function SearchBarLand() {
     //display search bar, use state to update to list -> one city
