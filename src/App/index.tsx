@@ -14,9 +14,15 @@ const optionStyle: React.CSSProperties = {
 }
 
 const ChooseMode: React.FC<{setMode: React.Dispatch<React.SetStateAction<Mode>>}> = ({setMode})=>{
-  return <section className="d-flex justify-content-around w-100 mt-3">
-    <button style={optionStyle} onClick={()=>setMode("searchByLand")}>Search By Land</button>
-    <button style={optionStyle} onClick={()=>setMode("searchByName")}>Search By City</button>
+  return <section className="mt-5 container">
+    <div className="row g-5 d-flex justify-content-around ">
+      <div className="col-md-4">
+        <button style={optionStyle} onClick={()=>setMode("searchByLand")}>Search By Land</button>
+      </div>
+      <div className="col-md-4">
+        <button style={optionStyle} onClick={()=>setMode("searchByName")}>Search By City</button>
+      </div>
+    </div>
   </section>
 }
 

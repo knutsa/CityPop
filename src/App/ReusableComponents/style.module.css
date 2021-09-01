@@ -4,6 +4,11 @@
     width: 60vw;
     text-align: center;
 }
+@media screen and (min-width: 800px) {
+    .search_container input {
+        width: 40vw;
+    }
+}
 .search_container button {
     background-color: var(--secondary);
     color: var(--light);
