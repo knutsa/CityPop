@@ -57,9 +57,21 @@ export const useNameSearch = ()=>{
     Hook to search for city data
     returns state values data, isLoading, Error and method to trigger new serach - {data, isLoading, Error, reSearch}
     */
+    const [nameToMatch, setNameToMatch] = React.useState<string | null>(null);
     const geoApi = useGEOFetch();
+    React.useEffect(()=>{
+        geoApi.setData(prev=>{
+            const newData = prev?.filter(city=>city.name.toLocaleUpperCase()===nameToMatch?.toUpperCase());
+            if(newData?.length)
+                return newData;
+            if(nameToMatch !== null && !geoApi.isLoading)
+                geoApi.setError({msg: `No city named "${nameToMatch}"`})
+            return null;
+        })
+    }, [geoApi.data, geoApi.isLoading, nameToMatch])
     const searchByName = async (cityName: string) => {
     //   Promise resolves to true if data was fetched
+        setNameToMatch(cityName);
         return geoApi.fetchRes(`http://api.geonames.org/searchJSON?q=${cityName}&maxRows=100&username=weknowit`);
     }
    return {...geoApi, searchByName}
@@ -85,3 +97,4 @@ export const useLandSearch = ()=>{
    }
    return {...geoApi, searchByLand}
 }
+

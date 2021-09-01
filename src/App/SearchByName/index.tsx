@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {useNameSearch} from 'hooks/geoapi'
-import {SearchBar} from '../ReusableComponents'
+import {SearchBar, Loading, ErrorMsg} from '../ReusableComponents'
 import {CityInfo} from '../ReusableComponents/CityDisplay'
 
 function SearchBarLand() {
@@ -17,6 +17,12 @@ function SearchBarLand() {
             }
             {
                 geoAPI.data && <CityInfo city={geoAPI.data[0]} containerClassNames="mt-3"></CityInfo>
+            }
+            {
+                geoAPI.isLoading && <Loading></Loading>
+            }
+            {
+                geoAPI.error !== null && geoAPI.data === null && <ErrorMsg error={geoAPI.error}></ErrorMsg>
             }
         </section>
     )
