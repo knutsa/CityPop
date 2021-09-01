@@ -3,7 +3,6 @@ import React from 'react'
 import {useLandSearch} from 'hooks/geoapi'
 import {SearchBar, ErrorMsg, Loading} from '../ReusableComponents'
 import {CityLI, CityInfo} from '../ReusableComponents/CityDisplay'
-import {getCountry} from 'hooks/iso-code-converter'
 
 function SearchByLand() {
     //display search bar, use state to update to list -> one city

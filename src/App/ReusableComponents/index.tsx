@@ -1,6 +1,5 @@
-import React, { MouseEvent } from 'react'
+import React from 'react'
 
-import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import SearchIcon from '@material-ui/icons/Search'
 import BackIcon from '@material-ui/icons/Reply'

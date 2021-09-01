@@ -1,6 +1,6 @@
 import React from 'react'
 import {City, Error} from 'interfaces'
-import {getIsoCode, getCountry} from './iso-code-converter'
+import {getIsoCode} from './iso-code-converter'
 
 //Comparison to order Cities
 const CityComparer = (a: City, b: City)=>{
@@ -68,7 +68,7 @@ export const useNameSearch = ()=>{
                 geoApi.setError({msg: `No city named "${nameToMatch}"`})
             return null;
         })
-    }, [geoApi.data, geoApi.isLoading, nameToMatch])
+    }, [geoApi,geoApi.data, geoApi.isLoading, nameToMatch])
     const searchByName = async (cityName: string) => {
     //   Promise resolves to true if data was fetched
         setNameToMatch(cityName);

@@ -22,7 +22,7 @@ const ChooseMode: React.FC<{setMode: React.Dispatch<React.SetStateAction<Mode>>}
 
 function App() {
   //Chooses mode
-  const [mode, setMode] = React.useState<Mode>("searchByLand");
+  const [mode, setMode] = React.useState<Mode>("choosing");
   return (
     <>
       <h1 className="f-lg">CityPop</h1>
