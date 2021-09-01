@@ -16,7 +16,7 @@ function SearchBarLand() {
                 </>
             }
             {
-                geoAPI.data && <CityInfo city={geoAPI.data[0]} containerClassNames="mt-3"></CityInfo>
+                geoAPI.data?.length && <CityInfo city={geoAPI.data[0]} containerClassNames="mt-3"></CityInfo>
             }
             {
                 geoAPI.isLoading && <Loading></Loading>

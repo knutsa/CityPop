@@ -21,7 +21,7 @@ export const useGEOFetch = () => {
         const newData = rawData?.filter(place=>place.fcl === "P")
             .sort(CityComparer)
             .slice(0, 10);
-        if(newData)
+        if(newData?.length)
             setData(newData);
         else
             setData(null);
@@ -72,7 +72,7 @@ export const useNameSearch = ()=>{
     const searchByName = async (cityName: string) => {
     //   Promise resolves to true if data was fetched
         setNameToMatch(cityName);
-        return geoApi.fetchRes(`http://api.geonames.org/searchJSON?q=${cityName}&maxRows=100&username=weknowit`);
+        return geoApi.fetchRes(`http://api.geonames.org/searchJSON?q=${encodeURIComponent(cityName)}&maxRows=100&username=weknowit`);
     }
    return {...geoApi, searchByName}
    
