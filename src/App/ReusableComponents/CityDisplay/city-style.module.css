@@ -6,6 +6,9 @@
 .city_li {
     width: 40vw;
 }
+.city_li:hover {
+    cursor: pointer;
+}
 
 .city_info .box {
     padding-left: 3rem;
