@@ -37,6 +37,7 @@ export const useGEOFetch = () => {
             setIsLoading(false);
         } catch {
             setError({msg: "Something went wrong when fetching the data."});
+            setIsLoading(false);
             return false;
         }
         return true;
@@ -58,23 +59,25 @@ export const useNameSearch = ()=>{
     returns state values data, isLoading, Error and method to trigger new serach - {data, isLoading, Error, reSearch}
     */
     const [nameToMatch, setNameToMatch] = React.useState<string | null>(null);
+    const [foundCity, setFoundCity] = React.useState<City | null>(null);
     const geoApi = useGEOFetch();
     React.useEffect(()=>{
-        geoApi.setData(prev=>{
-            const newData = prev?.filter(city=>city.name.toLocaleUpperCase()===nameToMatch?.toUpperCase());
-            if(newData?.length)
-                return newData;
-            if(nameToMatch !== null && !geoApi.isLoading)
-                geoApi.setError({msg: `No city named "${nameToMatch}"`})
-            return null;
-        })
+        const newData = geoApi.data?.filter(city=>city.name.toUpperCase()===nameToMatch?.toUpperCase());
+        if(newData?.length){
+            setFoundCity(newData[0]);
+            return;
+        }
+        if(nameToMatch !== null && !geoApi.isLoading)
+            geoApi.setError({msg: `No city named "${nameToMatch}"`})
+        setFoundCity(null);
+        return;
     }, [geoApi,geoApi.data, geoApi.isLoading, nameToMatch])
     const searchByName = async (cityName: string) => {
     //   Promise resolves to true if data was fetched
         setNameToMatch(cityName);
-        return geoApi.fetchRes(`http://api.geonames.org/searchJSON?q=${encodeURIComponent(cityName)}&maxRows=100&username=weknowit`);
+        return geoApi.fetchRes(`https://secure.geonames.org/searchJSON?q=${encodeURIComponent(cityName)}&featureClass=P&maxRows=100&username=weknowit`);
     }
-   return {...geoApi, searchByName}
+   return {...geoApi, searchByName, foundCity}
    
 }
 
@@ -93,7 +96,7 @@ export const useLandSearch = ()=>{
            geoApi.setData(null);
            return false;
        }
-       return geoApi.fetchRes(`http://api.geonames.org/searchJSON?country=${isoCode}&maxRows=100&username=weknowit`)
+       return geoApi.fetchRes(`https://secure.geonames.org/searchJSON?country=${isoCode}&featureClass=P&maxRows=100&username=weknowit`)
    }
    return {...geoApi, searchByLand}
 }
