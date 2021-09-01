@@ -16,7 +16,6 @@ body {
   --light: #fff;
   background-color: var(--primary) !important;
   color: var(--secondary) !important;
-
 }
 
 code {
@@ -44,6 +43,7 @@ input, textarea, label, button {
   align-items: center;
   width: 100%;
   text-align: center;
+  padding-bottom: 6rem;
 }
 
 

@@ -15,8 +15,8 @@ const optionStyle: React.CSSProperties = {
 
 const ChooseMode: React.FC<{setMode: React.Dispatch<React.SetStateAction<Mode>>}> = ({setMode})=>{
   return <section className="d-flex justify-content-around w-100 mt-3">
-    <div style={optionStyle} onClick={()=>setMode("searchByLand")}>Search By Land</div>
-    <div style={optionStyle} onClick={()=>setMode("searchByName")}>Search By City</div>
+    <button style={optionStyle} onClick={()=>setMode("searchByLand")}>Search By Land</button>
+    <button style={optionStyle} onClick={()=>setMode("searchByName")}>Search By City</button>
   </section>
 }
 
@@ -26,7 +26,7 @@ function App() {
   return (
     <>
       <h1 className="f-lg">CityPop</h1>
-      <BackBtn onClick={()=>setMode("choosing")}></BackBtn>
+      {mode !== "choosing" && <BackBtn onClick={()=>setMode("choosing")}></BackBtn>}
       {
         (mode === "searchByName") ? <SearchByName></SearchByName>:
           (mode === "searchByLand")? <SearchByLand></SearchByLand>:
