@@ -10,17 +10,16 @@ const optionStyle: React.CSSProperties = {
   backgroundColor: "var(--secondary)",
   color: "var(--light)",
   padding: "1rem",
-  borderRadius: "5px",
-  margin: "auto"
+  borderRadius: "5px"
 }
 
 const ChooseMode: React.FC<{setMode: React.Dispatch<React.SetStateAction<Mode>>}> = ({setMode})=>{
-  return <section className="mt-5 pt-md-5 container">
-    <div className="row g-5 d-flex justify-content-around justify-content-md-center">
-      <div className="col-md-4">
+  return <section className="mt-5 container">
+    <div className="row g-5 g-md-0 d-flex justify-content-center">
+      <div className="col-md-4 d-flex align-items-center justify-content-center justify-content-md-end mx-md-1">
         <button style={optionStyle} onClick={()=>setMode("searchByLand")}>Search By Land</button>
       </div>
-      <div className="col-md-4">
+      <div className="col-md-4 d-flex align-items-center justify-content-center justify-content-md-start mx-md-1">
         <button style={optionStyle} onClick={()=>setMode("searchByName")}>Search By City</button>
       </div>
     </div>
