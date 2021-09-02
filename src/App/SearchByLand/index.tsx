@@ -10,7 +10,7 @@ function SearchByLand() {
     const [selected, setSelected] = React.useState<number | undefined>();
     return (
         <section>
-            {geoAPI.data === null && <><h2 className="f-md mt-3">Search By Land</h2> <SearchBar search={(txt)=>{setSelected(undefined); return geoAPI.searchByLand(txt);}} containerClasses="mt-5"></SearchBar> </>}
+            {geoAPI.data === null && <><h2 className="f-md mt-3">Search By Country</h2> <SearchBar search={(txt)=>{setSelected(undefined); return geoAPI.searchByLand(txt);}} containerClasses="mt-5"></SearchBar> </>}
                 {
                     geoAPI.data && selected !== undefined && <CityInfo city={geoAPI.data[selected]} containerClassNames="mt-3"></CityInfo>
                 }
