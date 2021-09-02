@@ -17,7 +17,7 @@ const ChooseMode: React.FC<{setMode: React.Dispatch<React.SetStateAction<Mode>>}
   return <section className="mt-5 container">
     <div className="row g-5 g-md-0 d-flex justify-content-center">
       <div className="col-md-4 d-flex align-items-center justify-content-center justify-content-md-end mx-md-1">
-        <button style={optionStyle} onClick={()=>setMode("searchByLand")}>Search By Land</button>
+        <button style={optionStyle} onClick={()=>setMode("searchByLand")}>Search By Country</button>
       </div>
       <div className="col-md-4 d-flex align-items-center justify-content-center justify-content-md-start mx-md-1">
         <button style={optionStyle} onClick={()=>setMode("searchByName")}>Search By City</button>
