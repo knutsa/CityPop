@@ -1,10 +1,10 @@
 export interface City {
     name: string,
     population: number
-    fcl: string //Feature class - gives the type of place P is for populated place aka city, village, ...
-    countryName: string
-    //and more
+    country: string // This is an ISo codeflo
+    latitude: number
+    longitude: number
 }
-export interface Error {
+export interface ErrorData {
     msg: string;
 }

@@ -264,6 +264,7 @@ const cacheNames = () =>{
 }
 
 export const getIsoCode: ((country: string) => string|undefined) = (country: string)=>{
+    //Takes ISO code or country name and returns correct iso code if it's valid
     country = country.toUpperCase();
     console.log(country, "capped", isoCountries.get(country));
     if(isoCountries.get(country))
@@ -274,6 +275,9 @@ export const getIsoCode: ((country: string) => string|undefined) = (country: str
     return nameToiso.get(country);
 }
 export const getCountry: ((isoCodeOrCountry: string) => string | null | undefined) = (isoCodeOrCountry: string)=>{
+    //Validates and formats isocde or country name
+    //Takes isocode or country name as string
+    //Returns correct country name if iso code or name is valid, and undefined if it's not
     const isoCode = getIsoCode(isoCodeOrCountry);
     if(isoCode === undefined)
         return undefined;

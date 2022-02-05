@@ -3,7 +3,7 @@ import React from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import SearchIcon from '@material-ui/icons/Search'
 import BackIcon from '@material-ui/icons/Reply'
-import {Error} from 'interfaces'
+import {ErrorData} from 'interfaces'
 
 import styles from './style.module.css'
 
@@ -35,7 +35,7 @@ export const SearchBar: React.FC<{search:(txt: string)=>Promise<boolean>, contai
     )
 }
 
-export const ErrorMsg: React.FC<{error: Error}> = ({error})=>{
+export const ErrorMsg: React.FC<{error: ErrorData}> = ({error})=>{
     return (<div className={`${styles.error_container}`}>
         <p className="f-md">{error.msg}</p>
     </div>)

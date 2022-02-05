@@ -1,6 +1,8 @@
 import React from 'react'
-import {City, Error} from 'interfaces'
+import {City, ErrorData} from 'interfaces'
 import {getIsoCode} from './iso-code-converter'
+
+const API_KEY = "QluQIOIwGurptxPwEAleUA==erg7WCxB8ernkziQ"
 
 //Comparison to order Cities
 const CityComparer = (a: City, b: City)=>{
@@ -12,14 +14,16 @@ const CityComparer = (a: City, b: City)=>{
 }
 
 export const useGEOFetch = () => {
+    //Base hook used in nameSearch nad landSearch - gives filtered and sorted list of cities
     const [rawData, setRawData] = React.useState<City[] | null>(null);
     const [data, setData] = React.useState<City[] | null>(null);
     const [isLoading, setIsLoading] = React.useState(false);
-    const [error, setError] = React.useState<Error | null>(null);
+    const [error, setError] = React.useState<ErrorData | null>(null);
 
     React.useEffect(()=>{
-        const newData = rawData?.filter(place=>place.fcl === "P")
-            .sort(CityComparer)
+        //console.log("rawData state", rawData);
+        const newData = rawData
+            ?.sort(CityComparer)
             .slice(0, 10);
         if(newData?.length)
             setData(newData);
@@ -31,9 +35,12 @@ export const useGEOFetch = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const res = await fetch(url);
-            const parsedData: {geonames: City[]} = await res.json();
-            setRawData(parsedData.geonames);
+            const res = await fetch(url, {headers: {'X-Api-Key': API_KEY}});
+            const parsedData: City[] = await res.json();
+            //console.log("Parsed data", parsedData);
+            if(!res.ok)
+                throw new Error()
+            setRawData(parsedData);
             setIsLoading(false);
         } catch {
             setError({msg: "Something went wrong when fetching the data."});
@@ -55,8 +62,8 @@ export const useGEOFetch = () => {
 
 export const useNameSearch = ()=>{
     /*
-    Hook to search for city data
-    returns state values data, isLoading, Error and method to trigger new serach - {data, isLoading, Error, reSearch}
+    Hook to search for city by name
+    returns foremost state values foundCity, isLoading, Error and searchByName method to trigger search - {foundCity, isLoading, Error, searchByName}
     */
     const [nameToMatch, setNameToMatch] = React.useState<string | null>(null);
     const [foundCity, setFoundCity] = React.useState<City | null>(null);
@@ -75,7 +82,7 @@ export const useNameSearch = ()=>{
     const searchByName = async (cityName: string) => {
     //   Promise resolves to true if data was fetched
         setNameToMatch(cityName);
-        return geoApi.fetchRes(`https://secure.geonames.org/searchJSON?q=${encodeURIComponent(cityName)}&featureClass=P&maxRows=100&username=weknowit`);
+        return geoApi.fetchRes(`https://api.api-ninjas.com/v1/city?name=${cityName}&limit=10`);
     }
    return {...geoApi, searchByName, foundCity}
    
@@ -83,8 +90,8 @@ export const useNameSearch = ()=>{
 
 export const useLandSearch = ()=>{
     /*
-    Hook to search for city data
-    returns state values data, isLoading, Error and method to trigger new serach - {data, isLoading, Error, reSearch}
+    Hook to search for cities by country
+    returns state values data, isLoading, Error and searchByLand - {data, isLoading, Error, searchByLand}
     */
     const geoApi = useGEOFetch();
     
@@ -96,7 +103,7 @@ export const useLandSearch = ()=>{
            geoApi.setData(null);
            return false;
        }
-       return geoApi.fetchRes(`https://secure.geonames.org/searchJSON?country=${isoCode}&featureClass=P&maxRows=100&username=weknowit`)
+       return geoApi.fetchRes(`https://api.api-ninjas.com/v1/city?country=${isoCode}&limit=30`)
    }
    return {...geoApi, searchByLand}
 }

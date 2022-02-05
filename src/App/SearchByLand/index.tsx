@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {useLandSearch} from 'hooks/geoapi'
+import {getCountry} from 'hooks/iso-code-converter'
 import {SearchBar, ErrorMsg, Loading} from '../ReusableComponents'
 import {CityLI, CityInfo} from '../ReusableComponents/CityDisplay'
 
@@ -16,7 +17,7 @@ function SearchByLand() {
                 }
                 {
                     selected === undefined && geoAPI.data && ( <div>
-                        <p className="f-md my-3">{geoAPI.data[0].countryName}</p>
+                        <p className="f-md my-3">{getCountry(geoAPI.data[0].country)}</p>
                         {
                             geoAPI.data.map((city, ind)=>{
                                 if(ind>=10)
