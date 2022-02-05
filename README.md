@@ -1,9 +1,11 @@
 # CityPop
 
-This branch contains the version of the application using the geonames api for city information.
+This branch contains the version of the application using [ninja-apis city api](https://api-ninjas.com/api/city) for city information.
+The api is pretty well documented with clear code examples and delivers axactly the information desired.
+
 Other branches offer the same features but are based on other apis.
 
-Deployed version of this branch is available [here](https://angry-poitras-834458.netlify.app/)
+Deployed version of this branch is available [here](https://flamboyant-fermi-228f10.netlify.app/)
 
 ## Available Scripts
 
